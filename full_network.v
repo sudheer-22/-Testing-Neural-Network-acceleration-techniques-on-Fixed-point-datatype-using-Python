@@ -26,32 +26,30 @@ reg reset;
 reg[9:0] weights_bank[67:0];
 wire[159:0] ws3,ws2,ws1,ws0;
 wire[9:0] d0_out,d1_out, d2_out,d3_out;
-//assign ws3 = {16'b1111011000,16'b0000101010,16'b0000000001,16'b0000100011
-//             ,16'b1111101000,16'b1111110011,16'b0000011110,16'b0000110101
-//             ,16'b0000011001,16'b0000011001,16'b0000010000,16'b0000001101
-//             ,16'b1111100100,16'b1111101111,16'b1111111010,16'b1110100010};
 assign ws3 = {weights_bank[0],weights_bank[1],weights_bank[2],weights_bank[3],weights_bank[4],weights_bank[5],weights_bank[6],weights_bank[7],
               weights_bank[8],weights_bank[9],weights_bank[10],weights_bank[11],weights_bank[12],weights_bank[13],weights_bank[14],weights_bank[15]};
+  
 assign ws2 = {weights_bank[16],weights_bank[17],weights_bank[18],weights_bank[19],weights_bank[20],weights_bank[21],weights_bank[22],10'b1110000111,
              weights_bank[24],weights_bank[25],weights_bank[26],weights_bank[27],weights_bank[28],weights_bank[29],weights_bank[30],weights_bank[31]};
-//assign ws2 = {10'b0000101000,10'b0000101001,10'b0000110010,10'b0010001101
-//             ,10'b0001000101,10'b0000101111,10'b1111001010,10'b1110000111
-//             ,10'b1110111011,10'b1111110111,10'b0000010110,10'b0001110100
-//             ,10'b0000100001,10'b1111101110,10'b1111111000,10'b1110110010};
+  
 assign ws1 = {weights_bank[32],weights_bank[33],weights_bank[34],weights_bank[35],weights_bank[36],weights_bank[37],weights_bank[38],weights_bank[39],
               weights_bank[40],weights_bank[41],weights_bank[42],weights_bank[43],weights_bank[44],weights_bank[45],weights_bank[46],weights_bank[47]};
+  
 assign ws0 = {weights_bank[48],weights_bank[49],weights_bank[50],weights_bank[51],weights_bank[52],weights_bank[53],weights_bank[54],weights_bank[55],
               weights_bank[56],weights_bank[57],weights_bank[58],weights_bank[59],weights_bank[60],weights_bank[61],weights_bank[62],weights_bank[63]};
+
 MAC n3(in, ws3, weights_bank[64], reset, d3_out);
 a_f af3(d3_out, d3);
-//neuron n3(in, ws3, weights_bank[64], reset, d3);
+
 MAC n2(in, ws2, weights_bank[65], reset, d2_out);
 a_f af2(d2_out, d2);
+
 MAC n1(in, ws1, weights_bank[66], reset, d1_out);
 a_f af1(d1_out, d1);
-//neuron n0(in, ws0, weights_bank[67], reset, d0);
+
 MAC n0(in, ws0, weights_bank[67], reset, d0_out);
 a_f af0(d0_out, d0);
+
 initial 
 begin
 $readmemb("weights_bias _10bit.txt", weights_bank);
